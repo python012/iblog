@@ -10,9 +10,14 @@ python-dotenv = "*"
 flask-login = "*"
 flask-wtf = "*"
 flask-debugtoolbar = "*"
+bootstrap-flask = "*"
+flask-mail = "*"
+flask-ckeditor = "*"
+flask-moment = "*"
 
 [dev-packages]
 "pep8" = "*"
+"autopep8" = "*"
 
 [requires]
 python_version = "3.6"
