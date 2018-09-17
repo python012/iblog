@@ -71,4 +71,9 @@ def register_shell_context(app):
 
 
 def register_commands(app):
-    pass
+
+    @app.cli.command()
+    @click.option('--category', default=10, help='create 10 categories by default')
+    @click.option('--post', default=50, help='create 50 posts by default')
+    @click.option('--comment', default=500, help='create 500 comments by default')
+    def forge(category, post, comment):
