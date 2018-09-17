@@ -11,7 +11,8 @@ import os
 
 def create_app(config_name=None):
     """
-    Factory function to generate flask instance
+    Factory function to generate flask instance, will be found
+    once `flask run`.
     """
     if config_name is None:
         config_name = os.getenv('FLASK_CONFIG', 'development')
@@ -28,4 +29,5 @@ def create_app(config_name=None):
     app.register_blueprint(blog_bp)
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(admin_bp, url_prefix='/admin')
+
     return app
