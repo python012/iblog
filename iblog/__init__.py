@@ -1,8 +1,8 @@
 #  -*- coding: utf-8 -*-
 
-from iblog.blurprint.auth import auth_bp
-from iblog.blurprint.admin import admin_bp
-from iblog.blurprint.blog import blog_bp
+from iblog.blueprint.auth import auth_bp
+from iblog.blueprint.admin import admin_bp
+from iblog.blueprint.blog import blog_bp
 from iblog.extensions import bootstrap, db, moment, ckeditor, mail
 from flask import Flask
 from iblog.settings import config
@@ -83,7 +83,7 @@ def register_commands(app):
         fake_admin()
 
         click.echo('Create %d categories...' % category)
-        fake_categories()
+        fake_categories(category)
 
         click.echo('Create %d posts...' % post)
         fake_posts(post)
