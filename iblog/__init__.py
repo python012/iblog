@@ -77,3 +77,5 @@ def register_commands(app):
     @click.option('--post', default=50, help='create 50 posts by default')
     @click.option('--comment', default=500, help='create 500 comments by default')
     def forge(category, post, comment):
+        from iblog.fakes import fake_admin, fake_categories, fake_posts, fake_comments
+        

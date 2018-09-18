@@ -44,10 +44,8 @@ class Comment(db.Model):
     timestamp = db.Column(db.DateTime, default=datetime.utcnow, index=True)
 
     replied_id = db.Column(db.Integer, db.ForeignKey('comment.id'))
-    replied = db.relationship(
-        'Comment', back_populates='replies', remote_slide=[id])
-    replies = db.relationship(
-        'Comment', back_populates='replied', cascade='all')
+    replied = db.relationship('Comment', back_populates='replies', remote_slide=[id])
+    replies = db.relationship('Comment', back_populates='replied', cascade='all')
 
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
     post = db.relationship('Post', back_populates='comments')
