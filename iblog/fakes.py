@@ -1,15 +1,15 @@
-from iblog.models import Admin, Category
+from iblog.models import Admin, Category, Comment, Post
 from iblog.extensions import db
 from faker import Faker
 from sqlalchemy.exc import IntegrityError
 import random
 
-faker = Faker()
+fake = Faker()
 
 
 def fake_posts(count=50):
     for i in range(count):
-        poist = Post(
+        post = Post(
             title=fake.sentence(),
             body=fake.text(1500),
             category=Category.query.get(
@@ -25,7 +25,7 @@ def fake_categories(count=10):
     category = Category(name='Default')
     db.session.add(category)
 
-    for in in range(count):
+    for i in range(count):
         category = Category(name=fake.word())
         db.session.add(category)
         try:
@@ -61,13 +61,14 @@ def fake_comments(count=500):
         )
         db.session.add(comment)
 
+        # comments from admin
         comment = Comment(
             author='Admin Jo',
             email='admin.jo@example.com',
             site='example.com',
             body=fake.sentence(),
             timestamp=fake.date_time_this_year(),
-            form_admin=True,
+            from_admin=True,
             reviewed=True,
             post=Post.query.get(random.randint(1, Post.query.count()))
         )
@@ -82,7 +83,7 @@ def fake_comments(count=500):
             body=fake.sentence(),
             timestamp=fake.date_time_this_year(),
             reviewed=True,
-            replied=Comment.query.get(random.randint(1, Comment.query.count()))
+            replied=Comment.query.get(random.randint(1, Comment.query.count())),
             post=Post.query.get(random.randint(1, Post.query.count()))
         )
         db.session.add(comment)

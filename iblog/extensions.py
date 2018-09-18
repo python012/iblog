@@ -9,5 +9,5 @@ from flask_ckeditor import CKEditor
 bootstrap = Bootstrap()
 db = SQLAlchemy()
 moment = Moment()
-ckeditor = CKEditor
+ckeditor = CKEditor()
 mail = Mail()

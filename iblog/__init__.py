@@ -7,6 +7,7 @@ from iblog.extensions import bootstrap, db, moment, ckeditor, mail
 from flask import Flask
 from iblog.settings import config
 import os
+import click
 
 
 def create_app(config_name=None):
@@ -47,12 +48,6 @@ def register_extensions(app):
     ckeditor.init_app(app)
     mail.init_app(app)
 
-    app.register_blueprint(blog_bp)
-    app.register_blueprint(auth_bp, url_prefix='/auth')
-    app.register_blueprint(admin_bp, url_prefix='/admin')
-
-    return app
-
 
 def register_logging(app):
     pass
@@ -76,6 +71,24 @@ def register_commands(app):
     @click.option('--category', default=10, help='create 10 categories by default')
     @click.option('--post', default=50, help='create 50 posts by default')
     @click.option('--comment', default=500, help='create 500 comments by default')
-    def forge(category, post, comment):
+    def init(category, post, comment):
+        """
+        Generate the fake data including categories, posts and comments.
+        """
         from iblog.fakes import fake_admin, fake_categories, fake_posts, fake_comments
-        
+        db.drop_all()
+        db.create_all()
+
+        click.echo('Creating adminstrator...')
+        fake_admin()
+
+        click.echo('Create %d categories...' % category)
+        fake_categories()
+
+        click.echo('Create %d posts...' % post)
+        fake_posts(post)
+
+        click.echo('Create %d comments...' % comment)
+        fake_comments(comment)
+
+        click.echo('Done.')
