@@ -25,6 +25,8 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), unique=True)
 
+    # back_populates 定义反向引用，用于建立双向关系，在关系的另一侧也必须显性定义关系属性
+    # relationship() 函数的第一个参数为关系另一侧的modal名称 - Post, 它会告诉SQLAlchemy 将 Category 类与 Post 类建立关系
     posts = db.relationship('Post', back_populates='category')
 
 
@@ -34,6 +36,7 @@ class Post(db.Model):
     body = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow, index=True)
 
+    #
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     category = db.relationship('Category', back_populates='posts')
 

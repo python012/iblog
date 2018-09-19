@@ -4,6 +4,7 @@ from iblog.blueprint.auth import auth_bp
 from iblog.blueprint.admin import admin_bp
 from iblog.blueprint.blog import blog_bp
 from iblog.extensions import bootstrap, db, moment, ckeditor, mail
+from iblog.models import Category, Post, Comment, Admin
 from flask import Flask
 from iblog.settings import config
 import os
@@ -62,7 +63,7 @@ def register_error(app):
 def register_shell_context(app):
     @app.shell_context_processor
     def make_shell_context():
-        return dict(db=db)
+        return dict(db=db, Post=Post, Comment=Comment, Category=Category, Admin=Admin)
 
 
 def register_commands(app):
